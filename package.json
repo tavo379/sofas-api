@@ -1,0 +1,28 @@
+{
+  "name": "ss-api",
+  "private": true,
+  "version": "0.0.0",
+  "description": "a Sails application",
+  "keywords": [],
+  "dependencies": {
+    "include-all": "^1.0.0",
+    "jsonwebtoken": "^7.4.1",
+    "machinepack-passwords": "^2.3.0",
+    "rc": "1.0.1",
+    "sails": "~0.12.13",
+    "sails-disk": "~0.10.9",
+    "sails-hook-autoreload": "^0.14.1",
+    "sails-mongo": "^0.12.2"
+  },
+  "scripts": {
+    "debug": "node debug app.js",
+    "start": "node app.js"
+  },
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/anonymous node/sails user/ss-api.git"
+  },
+  "author": "anonymous node/sails user",
+  "license": ""
+}
