@@ -22,6 +22,14 @@ module.exports = {
        url = req.param('url'),
        userId = req.param('user_id');
 
+       req.file('url')
+       .upload( function(err, file){
+         if(err){
+           return console.log(err);
+         }
+         console.log(file);
+       })
+
        if(!categoryName){
          return res.badRequest({err : 'invalid category_name'});
        }
@@ -37,9 +45,9 @@ module.exports = {
        if(!color){
         return res.badRequest({err : 'invalid color'});
        }
-       if(!url){
-        return res.badRequest({err : 'invalid url'});
-       }
+      //  if(!url){
+      //   return res.badRequest({err : 'invalid url'});
+      //  }
         if(!userId){
          return res.badRequest({err : 'invalid user_id'});
        }
