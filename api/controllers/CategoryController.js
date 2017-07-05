@@ -14,7 +14,8 @@ module.exports = {
    */
   create: function (req, res) {
 
-      name = req.param('name');
+      name = req.param('name')
+      subcategorie = req.param('subcategorie')
 
       if(!name){
        return res.badRequest({err : 'invalid name'});
@@ -26,7 +27,7 @@ module.exports = {
 
 
          //create new Category
-         const category = await Category.create({name});
+         const category = await Category.create({name,subcategorie});
 
          //return post and category
           return {category};

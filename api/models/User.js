@@ -9,10 +9,6 @@ module.exports = {
 
   attributes: {
 
-    first_name: {type: 'string'},
-
-    last_name: {type: 'string'},
-
     email: {type: 'string'},
 
     password: {type: 'string'},
@@ -62,4 +58,3 @@ module.exports = {
 
   }
 };
-

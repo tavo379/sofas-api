@@ -63,20 +63,9 @@ module.exports = {
   signup: function (req, res) {
 
     //Extract firstName of the user
-     let firstName = req.param('first_name'),
-         lastName = req.param('last_name'),
+     let
          email = req.param('email'),
          password = req.param('password');
-
-     //validate firstName
-     if(!firstName){
-       return res.badRequest({err : 'invalid first_name'});
-     }
-
-    //validate lastName
-    if(!lastName){
-      return res.badRequest({err : 'invalid last_name'});
-    }
 
 
     //validate email
@@ -102,8 +91,6 @@ module.exports = {
          const encPassword = await UtilService.encryptPassword(password);
         // create User
         const user = await  User.create({
-          first_name:firstName,
-          last_name : lastName,
           email,
           password : encPassword
         });
@@ -121,4 +108,3 @@ module.exports = {
       .catch(err => res.serverError(err));
   }
 };
-

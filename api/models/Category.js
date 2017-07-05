@@ -13,6 +13,9 @@ module.exports = {
       type: 'string',
       unique: true
     },
+    subcategorie: {
+      type: 'array'
+    },
 
     posts :{
       collection : 'post',

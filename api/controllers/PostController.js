@@ -12,6 +12,8 @@ module.exports = {
   /**
    * `PostController.create()`
    */
+
+
   create: function (req, res) {
 
     let categoryName = req.param('category_name'),
@@ -21,14 +23,6 @@ module.exports = {
        color = req.param('color'),
        url = req.param('url'),
        userId = req.param('user_id');
-
-       req.file('url')
-       .upload( function(err, file){
-         if(err){
-           return console.log(err);
-         }
-         console.log(file);
-       })
 
        if(!categoryName){
          return res.badRequest({err : 'invalid category_name'});
@@ -52,18 +46,32 @@ module.exports = {
          return res.badRequest({err : 'invalid user_id'});
        }
 
+       let imgUrl = ''
+       var path = require('path')
+
+       req.file('url').upload({
+              dirname: require('path').resolve(sails.config.appPath, 'assets/images')
+            },function (err, uploadedFiles) {
+              if (err) return res.negotiate(err);
+              let imgPath= path.basename(uploadedFiles[0].fd);
+              imgUrl='assets/images/'+ imgPath
+              console.log(uploadedFiles);
+               makeRequest()
+                .then(result => res.ok(result))
+                .catch(err => res.serverError(err));
+            });
+
        //create async method makeRequest
        const makeRequest = async () =>{
 
          try {
-
-
            //create new Category
            const category = await Category.create({name:categoryName});
 
            //create new Post
            const post = await Post.create({
-            nombre,descripcion,medidas,color,url,
+            nombre,descripcion,medidas,color,
+            url: imgUrl,
             _user :userId,
             _category: category.id
           });
@@ -78,9 +86,7 @@ module.exports = {
 
 
     //call the makeRequest method
-     makeRequest()
-       .then(result => res.ok(result))
-       .catch(err => res.serverError(err));
+
 
   },
 
