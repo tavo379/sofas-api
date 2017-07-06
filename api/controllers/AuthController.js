@@ -21,18 +21,15 @@ module.exports = {
 
     //validate email
     if(!email){
-      return res.badReques({err : 'invalid email'});
+      return res.badReques({err : 'Correo Invalido'});
     }
 
     //validate password
     if(!password){
-      return res.badRequest({err : 'invalid password'});
+      return res.badRequest({err : 'Contraseña Invalida'});
     }
 
-
-
     const loginReq = async () => {
-
       //add try and catch
         const user = await User.findOne({
           email
@@ -41,12 +38,22 @@ module.exports = {
       const isMatched = await User.checkPassword(password,user.password)
 
       if(!isMatched){
-        throw new Error('Your password is not matched');
+        throw new Error('Su contraseña no corresponde');
       }
+      //creando  resp object
+      let resp = {
+        user
+      };
 
+      //generando token
+      let token = JwtService.issue({
+        user,
+        expiresIn: '1d'
+      });
 
-      return user;
+      resp.token = token;
 
+      return resp;
     };
 
 

@@ -11,7 +11,7 @@ module.exports = {
 
     name : {
       type: 'string',
-      unique: true
+      
     },
     subcategorie: {
       type: 'array'
