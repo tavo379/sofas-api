@@ -7,15 +7,13 @@
 
 module.exports = {
 
-
-
   /**
    * `CategoryController.create()`
    */
   create: function (req, res) {
-
-      name = req.param('name')
-      subcategorie = req.param('subcategorie')
+      
+      name = req.body.name
+      subcategorie = req.body.sub
 
       if(!name){
        return res.badRequest({err : 'invalid name'});
@@ -24,16 +22,39 @@ module.exports = {
      const makeRequest = async () =>{
 
        try {
-
-
-         //create new Category
-         const category = await Category.create({name,subcategorie});
-
+        
+        if(subcategorie == 'null'){
+          const category = await Category.create({name,subcategorie:null});     
+          console.log('aaaaaa '+subcategorie)
+          return {category};    
+        }
+        else{
+          const category = await Category.findOne({name:name}).exec(function (err, categPrincipal){
+            if (err) { return res.serverError(err); }
+            if (!categPrincipal) { return res.notFound('Could not find a category.'); }
+            console.log(categPrincipal)            
+            
+            if(categPrincipal.subcategorie)
+            {
+              categPrincipal.subcategorie[(Object.keys(categPrincipal.subcategorie).length-1)/1+1] = subcategorie              
+            }
+            else{
+              categPrincipal.subcategorie={0:subcategorie}
+            }          
+            categPrincipal.save(function(err){
+              if (err) { return res.serverError(err); }
+              return categPrincipal
+            });//</save()>
+            
+          });
+          const result = await Category.findOne({name:name})
+          return result;
+        }
          //return post and category
-          return {category};
+          
 
        }catch (err){
-         throw err;
+         console.log(err);
        }
      };
      //call the makeRequest method

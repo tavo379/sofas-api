@@ -65,9 +65,8 @@ module.exports = {
        const makeRequest = async () =>{
 
          try {
-           //create new Category
-           const category = await Category.create({name:categoryName});
-
+           //create new Category           
+           const category = await Category.findOne({name:categoryName})
            //create new Post
            const post = await Post.create({
             nombre,descripcion,medidas,color,
