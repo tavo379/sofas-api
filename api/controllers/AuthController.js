@@ -6,9 +6,6 @@
  */
 
 module.exports = {
-
-
-
   /**
    * `AuthController.login()`
    */
@@ -113,5 +110,50 @@ module.exports = {
     signupRequest()
       .then(user => res.ok(user))
       .catch(err => res.serverError(err));
+  },
+
+
+  findOne: function (req, res) {
+    return res.json({
+      todo: 'findOne() is not implemented yet!'
+    });
+  },
+
+
+  /**
+   * `CategoryController.findAll()`
+   */
+   findAll: function (req, res) {
+
+     User.find()
+       .then(users => {
+
+         if(!users || users.length ===0){
+           throw new Error('No post found');
+         }
+         return res.ok(users);
+       })
+       .catch(err => res.notFound(err));
+
+   },
+
+
+  /**
+   * `CategoryController.update()`
+   */
+  update: function (req, res) {
+    return res.json({
+      todo: 'update() is not implemented yet!'
+    });
+  },
+
+
+  /**
+   * `CategoryController.delete()`
+   */
+  delete: function (req, res) {
+    return res.json({
+      todo: 'delete() is not implemented yet!'
+    });
   }
 };

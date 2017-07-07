@@ -52,6 +52,18 @@ module.exports.routes = {
   'PUT /posts/:id'   : 'PostController.update',
   'DELETE /posts/:id': 'PostController.delete',
 
+  'POST /sliders'      : 'SliderController.create',
+  'GET /sliders'       : 'SliderController.findAll',
+  'GET /sliders/:id'   : 'SliderController.findOne',
+  'PUT /sliders/:id'   : 'SliderController.update',
+  'DELETE /sliders/:id': 'SliderController.delete',
+
+  'POST /anuncios'      : 'SliderController.create',
+  'GET /anuncios'       : 'SliderController.findAll',
+  'GET /anuncios/:id'   : 'SliderController.findOne',
+  'PUT /anuncios/:id'   : 'SliderController.update',
+  'DELETE /anuncios/:id': 'SliderController.delete',
+
   'POST /category'      : 'CategoryController.create',
   'GET /category'       : 'CategoryController.findAll',
   'GET /category:id'   : 'CategoryController.findOne',
@@ -59,5 +71,6 @@ module.exports.routes = {
   'DELETE /category:id': 'CategoryController.delete',
 
   'POST /login'      : 'AuthController.login',
-  'POST /signup'     : 'AuthController.signup'
+  'POST /signup'     : 'AuthController.signup',
+  'GET /users'       : 'AuthController.findAll'
 };
