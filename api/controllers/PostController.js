@@ -97,10 +97,10 @@ module.exports = {
    findByCategory: function (req, res) {
 
      //extract postId
-     let categorySlug = req.params.slug;
-     console.log(categorySlug);
+     let categoryID = req.params.categoryId;
+     console.log(categoryID);
      Category.findOne({
-       slug : categorySlug
+        id: categoryID
      }).then((category) =>{
        if(category){
          Post.find({
@@ -113,22 +113,6 @@ module.exports = {
          })
        }
      });
-
-     //validate postId
-    //  if(!postId){
-    //    return res.badRequest({err : 'invalid post_id'});
-    //  }
-     //
-    //  //find single post with category
-    //  Post.findOne({
-    //    id : postId
-    //  })
-    //    .populate('_category')
-    //    .then(post => {
-    //      res.ok(post);
-    //    })
-    //    .catch(err => res.notFound(err));
-
    },
 
   findOne: function (req, res) {

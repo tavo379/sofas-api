@@ -48,7 +48,7 @@ module.exports.routes = {
   'POST /posts'      : 'PostController.create',
   'GET /posts'       : 'PostController.findAll',
   'GET /posts/:id'   : 'PostController.findOne',
-  'GET /posts/category/:categorySlug'   : 'PostController.findByCategory',
+  'GET /posts/category/:categoryId'   : 'PostController.findByCategory',
   'PUT /posts/:id'   : 'PostController.update',
   'DELETE /posts/:id': 'PostController.delete',
 
