@@ -24,69 +24,66 @@ module.exports = {
        url = req.param('url'),
        userId = req.param('user_id');
 
-       if(!categoryName){
-         return res.badRequest({err : 'invalid category_name'});
+   if(!categoryName){
+     return res.badRequest({err : 'invalid category_name'});
+   }
+    if(!nombre){
+     return res.badRequest({err : 'invalid nombre'});
+   }
+    if(!descripcion){
+     return res.badRequest({err : 'invalid descripcion'});
+   }
+   if(!medidas){
+    return res.badRequest({err : 'invalid medidas'});
+   }
+   if(!color){
+    return res.badRequest({err : 'invalid color'});
+   }
+
+   if(!userId){
+     return res.badRequest({err : 'invalid user_id'});
+   }
+
+   let images = [];
+   var path = require('path')
+   var streamOptions = {
+      dirname: path.resolve(sails.config.appPath, 'assets/images/'),
+      completed: function(fileData, next) {
+        next();
+      }
+    };
+
+   req.file('archivos').upload(Uploader.documentReceiverStream(streamOptions), function (err, uploadedFiles) {
+      if (err) return res.negotiate(err);
+
+      uploadedFiles.forEach(function(file) {
+        images.push('assets/images/' + file.fd);
+      });
+      makeRequest()
+       .then(result => res.ok(result))
+       .catch(err => res.serverError(err));
+    });
+
+      //create async method makeRequest
+     const makeRequest = async () =>{
+       try {
+         //create new Category
+         const category = await Category.findOne({name:categoryName})
+         //create new Post
+         const post = await Post.create({
+          nombre, descripcion, medidas, color,
+          images: images,
+          _user :userId,
+          _category: category.id
+        });
+
+         //return post and category
+          return { post, category };
+
+       } catch (err){
+         throw err;
        }
-        if(!nombre){
-         return res.badRequest({err : 'invalid nombre'});
-       }
-        if(!descripcion){
-         return res.badRequest({err : 'invalid descripcion'});
-       }
-       if(!medidas){
-        return res.badRequest({err : 'invalid medidas'});
-       }
-       if(!color){
-        return res.badRequest({err : 'invalid color'});
-       }
-      //  if(!url){
-      //   return res.badRequest({err : 'invalid url'});
-      //  }
-        if(!userId){
-         return res.badRequest({err : 'invalid user_id'});
-       }
-
-       let imgUrl = ''
-       var path = require('path')
-
-       req.file('url').upload({
-              dirname: require('path').resolve(sails.config.appPath, 'assets/images')
-            },function (err, uploadedFiles) {
-              if (err) return res.negotiate(err);
-              let imgPath= path.basename(uploadedFiles[0].fd);
-              imgUrl='assets/images/'+ imgPath
-              console.log(uploadedFiles);
-               makeRequest()
-                .then(result => res.ok(result))
-                .catch(err => res.serverError(err));
-            });
-
-       //create async method makeRequest
-       const makeRequest = async () =>{
-
-         try {
-           //create new Category           
-           const category = await Category.findOne({name:categoryName})
-           //create new Post
-           const post = await Post.create({
-            nombre,descripcion,medidas,color,
-            url: imgUrl,
-            _user :userId,
-            _category: category.id
-          });
-
-           //return post and category
-            return {post,category};
-
-         }catch (err){
-           throw err;
-         }
-       };
-
-
-    //call the makeRequest method
-
-
+     };
   },
 
 
