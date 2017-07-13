@@ -52,8 +52,8 @@ module.exports = {
         next();
       }
     };
-
-   req.file('archivos').upload(Uploader.documentReceiverStream(streamOptions), function (err, uploadedFiles) {
+  //Uploader.documentReceiverStream(streamOptions)
+   req.file('archivos').upload({ dirname: require('path').resolve(sails.config.appPath, 'assets/images') }, function (err, uploadedFiles) {
       if (err) return res.negotiate(err);
 
       uploadedFiles.forEach(function(file) {
