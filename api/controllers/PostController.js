@@ -46,18 +46,11 @@ module.exports = {
 
    let images = [];
    var path = require('path')
-   var streamOptions = {
-      dirname: path.resolve(sails.config.appPath, 'assets/images/'),
-      completed: function(fileData, next) {
-        next();
-      }
-    };
-  //Uploader.documentReceiverStream(streamOptions)
    req.file('archivos').upload({ dirname: require('path').resolve(sails.config.appPath, 'assets/images') }, function (err, uploadedFiles) {
       if (err) return res.negotiate(err);
 
       uploadedFiles.forEach(function(file) {
-        images.push('assets/images/' + file.fd);
+        images.push('/assets/images/' + file.fd.split('/').reverse()[0]);
       });
       makeRequest()
        .then(result => res.ok(result))

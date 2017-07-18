@@ -18,6 +18,8 @@ module.exports = {
 
     url: { type: 'string'},
 
+    images: { type: 'array' },
+
     _user : {
       model : 'user',
       columnName: 'user_id',
