@@ -18,7 +18,7 @@ module.exports = {
 
     //validate email
     if(!email){
-      return res.badReques({err : 'Correo Invalido'});
+      return res.badRequest({err : 'Correo Invalido'});
     }
 
     //validate password
@@ -31,6 +31,10 @@ module.exports = {
         const user = await User.findOne({
           email
         });
+
+      if (!user) {
+        throw new Error('Usario no existe');
+      }
 
       const isMatched = await User.checkPassword(password,user.password)
 
