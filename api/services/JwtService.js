@@ -1,12 +1,21 @@
+const jwt = require('jsonwebtoken');
+const secret = 'secret12323hgda';
+
 module.exports = {
 
   issue: (payload, expiresIn) => {
-    const jwt = require('jsonwebtoken');
+
 
     return jwt.sign({
         payload
-      }, 'secret12323hgda',
+      }, secret,
       {expiresIn});
+  },
+  verify: token => {
+
+    return jwt.verify(token, secret);
+
   }
+
 
 };
