@@ -5,6 +5,8 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 "use strict";
+var normalize = require('normalize-path');
+
 module.exports = {
 
 
@@ -50,7 +52,7 @@ module.exports = {
       if (err) return res.negotiate(err);
 
       uploadedFiles.forEach(function(file) {
-        file.fd = file.fd.replace('\\', '/');
+        file.fd = normalize(file.fd);
         images.push('/images/users/' + file.fd.split('/').reverse()[0]);
       });
       makeRequest()
