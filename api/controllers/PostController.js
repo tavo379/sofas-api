@@ -50,7 +50,7 @@ module.exports = {
       if (err) return res.negotiate(err);
 
       uploadedFiles.forEach(function(file) {
-        images.push('/assets/images/' + file.fd.split('/').reverse()[0]);
+        images.push('/images/' + file.fd.split('/').reverse()[0]);
       });
       makeRequest()
        .then(result => res.ok(result))

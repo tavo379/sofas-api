@@ -5,6 +5,7 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
+    "express": "^4.15.3",
     "include-all": "^1.0.0",
     "jsonwebtoken": "^7.4.1",
     "machinepack-passwords": "^2.3.0",

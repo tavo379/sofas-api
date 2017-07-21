@@ -91,3 +91,11 @@ module.exports.http = {
 
   // cache: 31557600000
 };
+
+var express = require('express');
+
+module.exports.express = {
+  customMiddleware: function (app) {
+    app.use('/images', express.static('assets/images'));
+  }
+};
