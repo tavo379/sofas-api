@@ -50,6 +50,7 @@ module.exports = {
       if (err) return res.negotiate(err);
 
       uploadedFiles.forEach(function(file) {
+        file.fd = file.fd.replace('\\', '/');
         images.push('/images/users/' + file.fd.split('/').reverse()[0]);
       });
       makeRequest()
