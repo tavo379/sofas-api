@@ -14,7 +14,7 @@ module.exports = {
 
     sliderlink: { type: 'string'},
 
-    url: { type: 'string'},
+    images: { type: 'array'},
 
   }
 };

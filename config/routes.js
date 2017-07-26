@@ -54,15 +54,13 @@ module.exports.routes = {
 
   'POST /sliders'      : 'SliderController.create',
   'GET /sliders'       : 'SliderController.findAll',
-  'GET /sliders/:id'   : 'SliderController.findOne',
-  'PUT /sliders/:id'   : 'SliderController.update',
-  'DELETE /sliders/:id': 'SliderController.delete',
+
 
   'POST /anuncios'      : 'AnuncioController.create',
   'GET /anuncios'       : 'AnuncioController.findAll',
   'GET /anuncios/:id'   : 'AnuncioController.findOne',
   'PUT /anuncios/:id'   : 'AnuncioController.update',
-  'DELETE /anuncios/:id': 'AnuncioController.delete',
+
 
   'POST /category'      : 'CategoryController.create',
   'GET /category'       : 'CategoryController.findAll',
