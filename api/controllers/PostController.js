@@ -22,7 +22,9 @@ module.exports = {
        nombre = req.param('nombre'),
        descripcion =req.param('descripcion'),
        medidas = req.param('medidas'),
-       color = req.param('color'),
+       color1 = req.param('color1'),
+       color2 = req.param('color2'),
+       color3 = req.param('color3'),
        url = req.param('url'),
        userId = req.param('user_id');
 
