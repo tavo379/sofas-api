@@ -17,7 +17,7 @@ module.exports = {
 
 
   create: function (req, res) {
-
+    res.setTimeout(0);
     let categoryName = req.param('category_name'),
        nombre = req.param('nombre'),
        descripcion =req.param('descripcion'),
@@ -53,71 +53,35 @@ module.exports = {
       return res.badRequest({err : 'invalid user_id'});
     }
     // Codigo para enlistar las imagenes para el color 1
-    let archivosColor1 = req.file('archivosColor1')
-    if(!archivosColor1){
-      return res.badRequest({err : 'invalid archivosColor1'});
+    let archivos = req.file('archivos')
+    if(!archivos){
+      return res.badRequest({err : 'invalid archivos'});
     }
-    let imagesColor1 = [];
-    // Codigo para enlistar las imagenes del color 2
-    let archivosColor2 = req.file('archivosColor2')
-    if(!archivosColor2){
-      return res.badRequest({err : 'invalid archivosColor1'});
-    }
-    let imagesColor2 = [];
-    // Código para enlistar las imagenes de color 3
-    let archivosColor3 = req.file('archivosColor3')
-    if(!archivosColor3){
-      return res.badRequest({err : 'invalid archivosColor1'});
-    }
-    let imagesColor3 = [];
-    archivosColor1.upload({
+    let imagenes = [];
+    res.setTimeout(0);
+    archivos.upload({
       dirname: require('path').resolve(sails.config.appPath, 'assets/images/users')
     }, function (err, uploadedFiles) {
       if (err) return res.negotiate(err);
       uploadedFiles.forEach(function(file) {
         file.fd = normalize(file.fd);
-        imagesColor1.push('/images/users/' + file.fd.split('/').reverse()[0]);
+        imagenes.push('/images/users/' + file.fd.split('/').reverse()[0]);
       });
-      if (imagesColor1.length !== 3) {
-        return res.badRequest({err : 'invalid archivosColor1'});
+      if (imagenes.length !== 9) {
+        return res.badRequest({err : 'invalid imagenes'});
       }
-      archivosColor2.upload({
-        dirname: require('path').resolve(sails.config.appPath, 'assets/images/users')
-      }, function (err, uploadedFiles) {
-        if (err) return res.negotiate(err);
-        uploadedFiles.forEach(function(file) {
-          file.fd = normalize(file.fd);
-          imagesColor2.push('/images/users/' + file.fd.split('/').reverse()[0]);
-        });
-        if (imagesColor2.length !== 3) {
-          return res.badRequest({err : 'invalid archivosColor2'});
-        }
 
-        archivosColor3.upload({
-          dirname: require('path').resolve(sails.config.appPath, 'assets/images/users')
-        }, function (err, uploadedFiles) {
-          if (err) return res.negotiate(err);
-          uploadedFiles.forEach(function(file) {
-            file.fd = normalize(file.fd);
-            imagesColor3.push('/images/users/' + file.fd.split('/').reverse()[0]);
-          });
-          if (imagesColor3.length !== 3) {
-            return res.badRequest({err : 'invalid archivosColor3'});
-          }
-          let images = []
-          for (var i = 0; i < imagesColor1.length; i++) {
-            var element = imagesColor1[i];
-            images.push({
-              color1: imagesColor1[i],
-              color2: imagesColor2[i],
-              color3: imagesColor3[i]
-            })
-          }
-          makeRequest()
-            .then(result => res.ok(result))
-            .catch(err => res.serverError(err));
-        });
-      });
+      let images = []
+      for (var i = 0; i < 3; i++) {
+        images.push({
+          color1: imagenes[i],
+          color2: imagenes[i+3],
+          color3: imagenes[i+6]
+        })
+      }
+      makeRequest()
+        .then(result => res.ok(result))
+        .catch(err => res.serverError(err));
     });
 
     // create async method makeRequest
