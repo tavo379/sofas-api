@@ -11,7 +11,7 @@ module.exports = {
 
     name : {
       type: 'string',
-      
+
     },
     subcategorie: {
       type: 'json'
@@ -20,6 +20,9 @@ module.exports = {
     posts :{
       collection : 'post',
       via : '_category'
+    },
+    image: {
+      type: 'string'
     }
   }
 };
