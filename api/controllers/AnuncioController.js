@@ -22,13 +22,24 @@ module.exports = {
       //create async method makeRequest
      const makeRequest = async () =>{
        try {
-         const anuncios = await Anuncios.create({
+         const anuncios = await Anuncios.find();
+         let anuncioId;
+         if (anuncios.length > 0) {
+          anuncioId = anuncios[0].id;
+         }
+         if (anuncioId) {
+          const an = await Anuncios.update(anuncioId, {
+            images: images,
+          });
+          //return anuncios and category
+          return an;
+         }
+
+        const an = await Anuncios.create({
           images: images,
         });
-
-         //return anuncios and category
-          return { anuncios };
-
+        //return anuncios and category
+        return an;
        } catch (err){
          throw err;
        }
