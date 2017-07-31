@@ -58,6 +58,7 @@ module.exports = {
       return res.badRequest({err : 'invalid archivos'});
     }
     let imagenes = [];
+    let images = []
     res.setTimeout(0);
     archivos.upload({
       dirname: require('path').resolve(sails.config.appPath, 'assets/images/users')
@@ -69,9 +70,7 @@ module.exports = {
       });
       if (imagenes.length !== 9) {
         return res.badRequest({err : 'invalid imagenes'});
-      }
-
-      let images = []
+      }      
       for (var i = 0; i < 3; i++) {
         images.push({
           color1: imagenes[i],
