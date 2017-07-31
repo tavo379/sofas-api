@@ -38,8 +38,14 @@ module.exports = {
     if(!medidas){
       return res.badRequest({err : 'invalid medidas'});
     }
-    if(!color){
-      return res.badRequest({err : 'invalid color'});
+    if(!color1){
+      return res.badRequest({err : 'invalid color1'});
+    }
+    if(!color2){
+      return res.badRequest({err : 'invalid color2'});
+    }
+    if(!color3){
+      return res.badRequest({err : 'invalid color3'});
     }
     if(!userId){
       return res.badRequest({err : 'invalid user_id'});
@@ -125,10 +131,15 @@ module.exports = {
         const category = await Category.findOne({name:categoryName})
         //create new Post
         const post = await Post.create({
-        nombre, descripcion, medidas, color,
-        images: JSON.stringify(images),
-        _user :userId,
-        _category: category.id
+          nombre,
+          descripcion,
+          medidas,
+          color1,
+          color2,
+          color3,
+          images: JSON.stringify(images), // La magia pokemon!!
+          _user :userId,
+          _category: category.id
       });
 
         //return post and category
