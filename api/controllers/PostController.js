@@ -57,6 +57,7 @@ module.exports = {
     if(!archivosColor1){
       return res.badRequest({err : 'invalid archivosColor1'});
     }
+    archivosColor1 = JSON.parse(archivosColor1)
     let imagesColor1 = [];
     archivosColor1.upload({ 
       dirname: require('path').resolve(sails.config.appPath, 'assets/images/users') 
@@ -78,6 +79,7 @@ module.exports = {
     if(!archivosColor2){
       return res.badRequest({err : 'invalid archivosColor1'});
     }
+    archivosColor2 = JSON.parse(archivosColor2)
     let imagesColor2 = [];
     archivosColor2.upload({ 
       dirname: require('path').resolve(sails.config.appPath, 'assets/images/users') 
@@ -99,6 +101,7 @@ module.exports = {
     if(!archivosColor3){
       return res.badRequest({err : 'invalid archivosColor1'});
     }
+    archivosColor3 = JSON.parse(archivosColor3)
     let imagesColor3 = [];
     archivosColor3.upload({ 
       dirname: require('path').resolve(sails.config.appPath, 'assets/images/users') 
