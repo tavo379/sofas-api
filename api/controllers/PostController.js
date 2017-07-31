@@ -58,6 +58,18 @@ module.exports = {
       return res.badRequest({err : 'invalid archivosColor1'});
     }
     let imagesColor1 = [];
+    // Codigo para enlistar las imagenes del color 2
+    let archivosColor2 = req.file('archivosColor2')
+    if(!archivosColor2){
+      return res.badRequest({err : 'invalid archivosColor1'});
+    }
+    let imagesColor2 = [];
+    // Código para enlistar las imagenes de color 3
+    let archivosColor3 = req.file('archivosColor3')
+    if(!archivosColor3){
+      return res.badRequest({err : 'invalid archivosColor1'});
+    }
+    let imagesColor3 = [];
     archivosColor1.upload({
       dirname: require('path').resolve(sails.config.appPath, 'assets/images/users')
     }, function (err, uploadedFiles) {
@@ -66,59 +78,47 @@ module.exports = {
         file.fd = normalize(file.fd);
         imagesColor1.push('/images/users/' + file.fd.split('/').reverse()[0]);
       });
+      if (imagesColor1.length !== 3) {
+        return res.badRequest({err : 'invalid archivosColor1'});
+      }
+      archivosColor2.upload({
+        dirname: require('path').resolve(sails.config.appPath, 'assets/images/users')
+      }, function (err, uploadedFiles) {
+        if (err) return res.negotiate(err);
+        uploadedFiles.forEach(function(file) {
+          file.fd = normalize(file.fd);
+          imagesColor2.push('/images/users/' + file.fd.split('/').reverse()[0]);
+        });
+        if (imagesColor2.length !== 3) {
+          return res.badRequest({err : 'invalid archivosColor2'});
+        }
 
-    });
-    if (imagesColor1.length !== 3) {
-      return res.badRequest({err : 'invalid archivosColor1'});
-    }
-    // Codigo para enlistar las imagenes del color 2
-    let archivosColor2 = req.file('archivosColor2')
-    if(!archivosColor2){
-      return res.badRequest({err : 'invalid archivosColor1'});
-    }
-    let imagesColor2 = [];
-    archivosColor2.upload({
-      dirname: require('path').resolve(sails.config.appPath, 'assets/images/users')
-    }, function (err, uploadedFiles) {
-      if (err) return res.negotiate(err);
-      uploadedFiles.forEach(function(file) {
-        file.fd = normalize(file.fd);
-        imagesColor2.push('/images/users/' + file.fd.split('/').reverse()[0]);
+        archivosColor3.upload({
+          dirname: require('path').resolve(sails.config.appPath, 'assets/images/users')
+        }, function (err, uploadedFiles) {
+          if (err) return res.negotiate(err);
+          uploadedFiles.forEach(function(file) {
+            file.fd = normalize(file.fd);
+            imagesColor3.push('/images/users/' + file.fd.split('/').reverse()[0]);
+          });
+          if (imagesColor3.length !== 3) {
+            return res.badRequest({err : 'invalid archivosColor3'});
+          }
+          let images = []
+          for (var i = 0; i < imagesColor1.length; i++) {
+            var element = imagesColor1[i];
+            images.push({
+              color1: imagesColor1[i],
+              color2: imagesColor2[i],
+              color3: imagesColor3[i]
+            })
+          }
+          makeRequest()
+            .then(result => res.ok(result))
+            .catch(err => res.serverError(err));
+        });
       });
-
     });
-    if (imagesColor2.length !== 3) {
-      return res.badRequest({err : 'invalid archivosColor2'});
-    }
-    // Código para enlistar las imagenes de color 3
-    let archivosColor3 = req.file('archivosColor3')
-    if(!archivosColor3){
-      return res.badRequest({err : 'invalid archivosColor1'});
-    }
-    let imagesColor3 = [];
-    archivosColor3.upload({
-      dirname: require('path').resolve(sails.config.appPath, 'assets/images/users')
-    }, function (err, uploadedFiles) {
-      if (err) return res.negotiate(err);
-      uploadedFiles.forEach(function(file) {
-        file.fd = normalize(file.fd);
-        imagesColor3.push('/images/users/' + file.fd.split('/').reverse()[0]);
-      });
-    
-    });
-    if (imagesColor3.length !== 3) {
-      return res.badRequest({err : 'invalid archivosColor3'});
-    }
-
-    let images = []
-    for (var i = 0; i < imagesColor1.length; i++) {
-      var element = imagesColor1[i];
-      images.push({
-        color1: imagesColor1[i],
-        color2: imagesColor2[i],
-        color3: imagesColor3[i]
-      })
-    }
 
     // create async method makeRequest
     const makeRequest = async () =>{
