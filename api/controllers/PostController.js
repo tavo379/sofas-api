@@ -26,60 +26,155 @@ module.exports = {
        url = req.param('url'),
        userId = req.param('user_id');
 
-   if(!categoryName){
-     return res.badRequest({err : 'invalid category_name'});
-   }
+    if(!categoryName){
+      return res.badRequest({err : 'invalid category_name'});
+    }
     if(!nombre){
-     return res.badRequest({err : 'invalid nombre'});
-   }
+      return res.badRequest({err : 'invalid nombre'});
+    }
     if(!descripcion){
-     return res.badRequest({err : 'invalid descripcion'});
-   }
-   if(!medidas){
-    return res.badRequest({err : 'invalid medidas'});
-   }
-   if(!color){
-    return res.badRequest({err : 'invalid color'});
-   }
-
-   if(!userId){
-     return res.badRequest({err : 'invalid user_id'});
-   }
-
-   let images = [];
-   var path = require('path')
-   req.file('archivos').upload({ dirname: require('path').resolve(sails.config.appPath, 'assets/images/users') }, function (err, uploadedFiles) {
+      return res.badRequest({err : 'invalid descripcion'});
+    }
+    if(!medidas){
+      return res.badRequest({err : 'invalid medidas'});
+    }
+    if(!color){
+      return res.badRequest({err : 'invalid color'});
+    }
+    if(!userId){
+      return res.badRequest({err : 'invalid user_id'});
+    }
+    // Codigo para enlistar las imagenes para el color 1
+    let archivosColor1 = req.file('archivosColor1')
+    if(!archivosColor1){
+      return res.badRequest({err : 'invalid archivosColor1'});
+    }
+    let imagesColor1 = [];
+    archivosColor1.upload({ 
+      dirname: require('path').resolve(sails.config.appPath, 'assets/images/users') 
+    }, function (err, uploadedFiles) {
       if (err) return res.negotiate(err);
-
       uploadedFiles.forEach(function(file) {
         file.fd = normalize(file.fd);
-        images.push('/images/users/' + file.fd.split('/').reverse()[0]);
+        imagesColor1.push('/images/users/' + file.fd.split('/').reverse()[0]);
       });
       makeRequest()
-       .then(result => res.ok(result))
-       .catch(err => res.serverError(err));
+        .then(result => res.ok(result))
+        .catch(err => res.serverError(err));
     });
+    if (imagesColor1.length !== 3) {
+      return res.badRequest({err : 'invalid archivosColor1'});
+    }
+    // Codigo para enlistar las imagenes del color 2
+    let archivosColor2 = req.file('archivosColor2')
+    if(!archivosColor2){
+      return res.badRequest({err : 'invalid archivosColor1'});
+    }
+    let imagesColor2 = [];
+    archivosColor2.upload({ 
+      dirname: require('path').resolve(sails.config.appPath, 'assets/images/users') 
+    }, function (err, uploadedFiles) {
+      if (err) return res.negotiate(err);
+      uploadedFiles.forEach(function(file) {
+        file.fd = normalize(file.fd);
+        imagesColor2.push('/images/users/' + file.fd.split('/').reverse()[0]);
+      });
+      makeRequest()
+        .then(result => res.ok(result))
+        .catch(err => res.serverError(err));
+    });
+    if (imagesColor2.length !== 3) {
+      return res.badRequest({err : 'invalid archivosColor2'});
+    }
+    // Código para enlistar las imagenes de color 3
+    let archivosColor3 = req.file('archivosColor3')
+    if(!archivosColor3){
+      return res.badRequest({err : 'invalid archivosColor1'});
+    }
+    let imagesColor3 = [];
+    archivosColor3.upload({ 
+      dirname: require('path').resolve(sails.config.appPath, 'assets/images/users') 
+    }, function (err, uploadedFiles) {
+      if (err) return res.negotiate(err);
+      uploadedFiles.forEach(function(file) {
+        file.fd = normalize(file.fd);
+        imagesColor3.push('/images/users/' + file.fd.split('/').reverse()[0]);
+      });
+      makeRequest()
+        .then(result => res.ok(result))
+        .catch(err => res.serverError(err));
+    });
+    if (imagesColor3.length !== 3) {
+      return res.badRequest({err : 'invalid archivosColor3'});
+    }
+    
+    let images = []
+    for (var i = 0; i < imagesColor1.length; i++) {
+      var element = imagesColor1[i];
+      images.push({
+        color1: imagesColor1[i],
+        color2: imagesColor2[i],
+        color3: imagesColor3[i]
+      })
+    }
 
-      //create async method makeRequest
-     const makeRequest = async () =>{
-       try {
-         //create new Category
-         const category = await Category.findOne({name:categoryName})
-         //create new Post
-         const post = await Post.create({
-          nombre, descripcion, medidas, color,
-          images: images,
-          _user :userId,
-          _category: category.id
-        });
+    // create async method makeRequest
+    const makeRequest = async () =>{
+      try {
+        //create new Category
+        const category = await Category.findOne({name:categoryName})
+        //create new Post
+        const post = await Post.create({
+        nombre, descripcion, medidas, color,
+        images: JSON.stringify(images),
+        _user :userId,
+        _category: category.id
+      });
 
-         //return post and category
-          return { post, category };
+        //return post and category
+        return { post, category };
 
-       } catch (err){
-         throw err;
-       }
-     };
+      } catch (err){
+        throw err;
+      }
+    }
+
+
+
+  //  let images = [];
+  //  var path = require('path')
+  //  req.file('archivos').upload({ dirname: require('path').resolve(sails.config.appPath, 'assets/images/users') }, function (err, uploadedFiles) {
+  //     if (err) return res.negotiate(err);
+
+  //     uploadedFiles.forEach(function(file) {
+  //       file.fd = normalize(file.fd);
+  //       images.push('/images/users/' + file.fd.split('/').reverse()[0]);
+  //     });
+  //     makeRequest()
+  //      .then(result => res.ok(result))
+  //      .catch(err => res.serverError(err));
+  //   });
+
+  //     //create async method makeRequest
+  //    const makeRequest = async () =>{
+  //      try {
+  //        //create new Category
+  //        const category = await Category.findOne({name:categoryName})
+  //        //create new Post
+  //        const post = await Post.create({
+  //         nombre, descripcion, medidas, color,
+  //         images: images,
+  //         _user :userId,
+  //         _category: category.id
+  //       });
+
+  //        //return post and category
+  //         return { post, category };
+
+  //      } catch (err){
+  //        throw err;
+  //      }
+  //    };
   },
 
 
