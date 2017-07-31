@@ -22,6 +22,7 @@ module.exports = {
        return res.badRequest({err : 'invalid name'});
      }
 
+     if(subcategorie == 'null'){
      let img;
     image.upload({
       dirname: require('path').resolve(sails.config.appPath, 'assets/images/users')
@@ -32,6 +33,7 @@ module.exports = {
         .then(result => res.ok(result))
         .catch(err => res.serverError(err));
     });
+     }
 
      //create async method makeRequest
      const makeRequest = async () =>{
