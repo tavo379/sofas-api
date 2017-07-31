@@ -14,7 +14,11 @@ module.exports = {
 
     medidas: { type: 'string'},
 
-    color: { type:'string'},
+    color1: { type:'string'},
+
+    color2: { type:'string'},
+
+    color3: { type:'string'},
 
     url: { type: 'string'},
 
