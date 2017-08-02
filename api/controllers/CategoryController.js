@@ -72,6 +72,14 @@ module.exports = {
          console.log(err);
        }
      };
+
+      //call the makeRequest method
+      if (subcategorie !== 'null') {
+        makeRequest()
+          .then(result => res.ok(result))
+          .catch(err => res.serverError(err));
+      }
+
   },
 
 
