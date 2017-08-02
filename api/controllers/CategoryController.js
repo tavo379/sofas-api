@@ -22,24 +22,23 @@ module.exports = {
        return res.badRequest({err : 'invalid name'});
      }
 
-     if(subcategorie == 'null'){
-     let img;
-    image.upload({
-      dirname: require('path').resolve(sails.config.appPath, 'assets/images/users')
-    }, function (err, uploadedFiles) {
-      img = normalize(uploadedFiles[0].fd);
-      img = '/images/users/' + img.split('/').reverse()[0];
-      makeRequest()
-        .then(result => res.ok(result))
-        .catch(err => res.serverError(err));
-    });
-     }
+    let img;
+    if(subcategorie === 'null'){
+      image.upload({
+        dirname: require('path').resolve(sails.config.appPath, 'assets/images/users')
+      }, function (err, uploadedFiles) {
+        img = normalize(uploadedFiles[0].fd);
+        img = '/images/users/' + img.split('/').reverse()[0];
+        makeRequest()
+          .then(result => res.ok(result))
+          .catch(err => res.serverError(err));
+      });
+    }
 
      //create async method makeRequest
      const makeRequest = async () =>{
        try {
-
-        if(subcategorie == 'null'){
+        if(subcategorie === 'null'){
           console.log('aaaaaa '+ img)
           const category = await Category.create({name, subcategorie: null, image: img});
           return {category};
@@ -57,7 +56,6 @@ module.exports = {
             else{
               categPrincipal.subcategorie={0:subcategorie}
             }
-            categPrincipal.image = uploadImage(image);
             categPrincipal.save(function(err){
               if (err) { return res.serverError(err); }
               return categPrincipal
@@ -74,11 +72,6 @@ module.exports = {
          console.log(err);
        }
      };
-     //call the makeRequest method
-      makeRequest()
-        .then(result => res.ok(result))
-        .catch(err => res.serverError(err));
-
   },
 
 
