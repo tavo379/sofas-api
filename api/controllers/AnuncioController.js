@@ -4,6 +4,19 @@ var normalize = require('normalize-path');
 module.exports = {
 
   create: function (req, res) {
+    let image1 = req.file('image1')
+    if (!image1) {
+      return res.badRequest({err : 'invalid image1'});
+    }
+    let image2 = req.file('image2')
+    if (!image2) {
+      return res.badRequest({err : 'invalid image2'});
+    }
+    let archivos = req.file('archivos')
+    if (!archivos) {
+      return res.badRequest({err : 'invalid archivos'});
+    }
+
     let archivos = req.file('archivos')
     if (!archivos) {
       return res.badRequest({err : 'invalid archivos'});
@@ -29,15 +42,34 @@ module.exports = {
          if (anuncios.length > 0) {
           anuncioId = anuncios[0].id;
          }
-         console.log(' ==> anuncioId : ' + anuncioId)
          if (anuncioId) {
+          let imgs = []
+          if (image1 === 'Y' && image2 === 'Y') {
+            imgs = images
+          } else if (image1 === 'Y') {
+            imgs[0] = images[0]
+            imgs[1] = anuncios[0].images[1]
+          } else if (image2 === 'Y') {
+            imgs[1] = images[0]
+            imgs[0] = anuncios[0].images[1]
+          }
           const an = await Anuncios.update(anuncioId, {
-            images: images,
+            images: imgs,
           });
           //return anuncios and category
           return an;
          }
-
+        
+        let imgs = []
+        if (image1 === 'Y' && image2 === 'Y') {
+          imgs = images
+        } else if (image1 === 'Y') {
+          imgs[0] = images[0]
+          imgs[1] = ''
+        } else if (image2 === 'Y') {
+          imgs[1] = images[0]
+          imgs[0] = ''
+        }
         const an = await Anuncios.create({
           images: images,
 
