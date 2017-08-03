@@ -37,6 +37,9 @@ module.exports = {
          if (anuncios.length > 0) {
           anuncioId = anuncios[0].id;
          }
+        console.log('image1 '+ image1)
+        console.log('image2 '+ image2)
+        console.log('images ')
         console.log(images)
          if (anuncioId) {
           let imgs = []
