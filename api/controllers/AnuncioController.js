@@ -4,11 +4,11 @@ var normalize = require('normalize-path');
 module.exports = {
 
   create: function (req, res) {
-    let image1 = req.file('image1')
+    let image1 = req.param('image1')
     if (!image1) {
       return res.badRequest({err : 'invalid image1'});
     }
-    let image2 = req.file('image2')
+    let image2 = req.param('image2')
     if (!image2) {
       return res.badRequest({err : 'invalid image2'});
     }
@@ -37,10 +37,6 @@ module.exports = {
          if (anuncios.length > 0) {
           anuncioId = anuncios[0].id;
          }
-        console.log('image1 '+ image1)
-        console.log('image2 '+ image2)
-        console.log('images ')
-        console.log(images)
          if (anuncioId) {
           let imgs = []
           if (image1 === 'Y' && image2 === 'Y') {
@@ -58,7 +54,7 @@ module.exports = {
           //return anuncios and category
           return an;
          }
-        
+
         let imgs = []
         if (image1 === 'Y' && image2 === 'Y') {
           imgs = images
