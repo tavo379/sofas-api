@@ -32,8 +32,7 @@ module.exports = {
          console.log(' ==> anuncioId : ' + anuncioId)
          if (anuncioId) {
           const an = await Anuncios.update(anuncioId, {
-            image1: { type: 'string' },
-            image2: { type: 'string' },
+            images: images,
           });
           //return anuncios and category
           return an;
