@@ -37,6 +37,7 @@ module.exports = {
          if (anuncios.length > 0) {
           anuncioId = anuncios[0].id;
          }
+        console.log(images)
          if (anuncioId) {
           let imgs = []
           if (image1 === 'Y' && image2 === 'Y') {
@@ -46,7 +47,7 @@ module.exports = {
             imgs[1] = anuncios[0].images[1]
           } else if (image2 === 'Y') {
             imgs[1] = images[0]
-            imgs[0] = anuncios[0].images[1]
+            imgs[0] = anuncios[0].images[0]
           }
           const an = await Anuncios.update(anuncioId, {
             images: imgs,
@@ -66,7 +67,7 @@ module.exports = {
           imgs[0] = ''
         }
         const an = await Anuncios.create({
-          images: images,
+          images: imgs,
 
         });
         //return anuncios and category
