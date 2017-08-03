@@ -204,7 +204,7 @@ module.exports = {
       .populate('_category')
       .then(posts => {
 
-        if(!posts || posts.length ===0){
+        if(!posts || posts.length === 0){
           throw new Error('No post found');
         }
         return res.ok(posts);
