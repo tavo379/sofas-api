@@ -10,7 +10,7 @@ module.exports = {
     }
     let images = [];
 
-    req.file('avatar').upload({
+    archivos.upload({
       // don't allow the total upload size to exceed ~10MB
       maxBytes: 10000000
     },function whenDone(err, uploadedFiles) {
