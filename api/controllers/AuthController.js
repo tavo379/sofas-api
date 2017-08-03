@@ -155,9 +155,27 @@ module.exports = {
   /**
    * `CategoryController.delete()`
    */
-  delete: function (req, res) {
-    return res.json({
-      todo: 'delete() is not implemented yet!'
-    });
-  }
+   delete: function (req, res) {
+
+     //extract postId
+     let userId = req.params.id;
+     console.log(userId);
+     //validate userId
+     if(!userId){
+       return res.badRequest({err : 'invalid post_id'});
+     }
+
+
+     //delete the Post
+     User.destroy({
+       id : userId
+     })
+       .then(user => {
+
+         res.ok(`Post has been deleted with ID ${userId}`);
+
+       })
+       .catch(err => res.serverError(err));
+
+   }
 };

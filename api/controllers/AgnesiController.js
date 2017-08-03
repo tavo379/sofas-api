@@ -8,53 +8,17 @@
 var normalize = require('normalize-path');
 
 module.exports = {
-
-
-
-  /**
-   * `PostController.create()`
-   */
-
-
   create: function (req, res) {
     res.setTimeout(0);
-    let categoryName = req.param('category_name'),
-       nombre = req.param('nombre'),
-       descripcion =req.param('descripcion'),
-       medidas = req.param('medidas'),
-       color1 = req.param('color1'),
-       color2 = req.param('color2'),
-       color3 = req.param('color3'),
-       url = req.param('url'),
-       userId = req.param('user_id');
+    let descripcion =req.param('descripcion');
 
-    if(!categoryName){
-      return res.badRequest({err : 'invalid category_name'});
-    }
-    if(!nombre){
-      return res.badRequest({err : 'invalid nombre'});
-    }
     if(!descripcion){
       return res.badRequest({err : 'invalid descripcion'});
     }
-    if(!medidas){
-      return res.badRequest({err : 'invalid medidas'});
-    }
-    if(!color1){
-      return res.badRequest({err : 'invalid color1'});
-    }
-    if(!color2){
-      return res.badRequest({err : 'invalid color2'});
-    }
-    if(!color3){
-      return res.badRequest({err : 'invalid color3'});
-    }
-    if(!userId){
-      return res.badRequest({err : 'invalid user_id'});
-    }
+
     // Codigo para enlistar las imagenes para el color 1
     let archivos = req.file('archivos')
-    if(!archivos){
+    if(!archivos) {
       return res.badRequest({err : 'invalid archivos'});
     }
     let imagenes = [];
@@ -71,13 +35,7 @@ module.exports = {
       if (imagenes.length !== 9) {
         return res.badRequest({err : 'invalid imagenes'});
       }
-      for (var i = 0; i < 3; i++) {
-        images.push({
-          color1: imagenes[i],
-          color2: imagenes[i+3],
-          color3: imagenes[i+6]
-        })
-      }
+
       makeRequest()
         .then(result => res.ok(result))
         .catch(err => res.serverError(err));
@@ -86,29 +44,20 @@ module.exports = {
     // create async method makeRequest
     const makeRequest = async () =>{
       try {
-        //create new Category
-        const category = await Category.findOne({name:categoryName})
-        //create new Post
-        const post = await Post.create({
-          nombre,
+
+        //create new agnesi-slider
+        const agnesi = await Agnesi.create({
           descripcion,
-          medidas,
-          color1,
-          color2,
-          color3,
           images: JSON.stringify(images), // La magia pokemon!!
-          _user :userId,
-          _category: category.id
       });
 
         //return post and category
-        return { post, category };
+        return { agnesi };
 
       } catch (err){
         throw err;
       }
     }
-
   },
 
 

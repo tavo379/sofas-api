@@ -68,7 +68,15 @@ module.exports.routes = {
   'PUT /category:id'   : 'CategoryController.update',
   'DELETE /category:id': 'CategoryController.delete',
 
+
+  'POST /agnesi'      : 'AgnesiController.create',
+  'GET /agnesi'       : 'AgnesiController.findAll',
+  'GET /agnesi:id'   : 'AgnesiController.findOne',
+  'PUT /agnesi:id'   : 'AgnesiController.update',
+  'DELETE /agnesi:id': 'AgnesiController.delete',
+
   'POST /login'      : 'AuthController.login',
   'POST /signup'     : 'AuthController.signup',
-  'GET /users'       : 'AuthController.findAll'
+  'GET /users'       : 'AuthController.findAll',
+  'DELETE /users/:id' : 'AuthController.delete',
 };
