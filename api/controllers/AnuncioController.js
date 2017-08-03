@@ -88,31 +88,31 @@ module.exports = {
     //   .catch(err => res.serverError(err));
     // });
 
-      // create async method makeRequest
-     const makeRequest = async () =>{
-       try {
-         const anuncios = await Anuncios.find();
-         let anuncioId = false;
-         if (anuncios.length > 0) {
-          anuncioId = anuncios[0].id;
-         }
-         if (anuncioId) {
-          const an = await Anuncios.update(anuncioId, {
-            images: images,
-          });
-          //return anuncios and category
-          return an;
-         }
+    //   // create async method makeRequest
+    //  const makeRequest = async () =>{
+    //    try {
+    //      const anuncios = await Anuncios.find();
+    //      let anuncioId = false;
+    //      if (anuncios.length > 0) {
+    //       anuncioId = anuncios[0].id;
+    //      }
+    //      if (anuncioId) {
+    //       const an = await Anuncios.update(anuncioId, {
+    //         images: images,
+    //       });
+    //       //return anuncios and category
+    //       return an;
+    //      }
 
-        const an = await Anuncios.create({
-          images: images,
-        });
-        //return anuncios and category
-        return an;
-       } catch (err){
-         throw err;
-       }
-     };
+    //     const an = await Anuncios.create({
+    //       images: images,
+    //     });
+    //     //return anuncios and category
+    //     return an;
+    //    } catch (err){
+    //      throw err;
+    //    }
+    //  };
   },
 
   findAll: function (req, res) {
