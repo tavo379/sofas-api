@@ -50,7 +50,7 @@ module.exports = {
         });
       }).catch(err => {
         // Crear Anuncio
-        const an = await Anuncios.create({
+        let result = Anuncios.create({
           image1 : require('util').format('%s/assets/images/anunciones/%s', sails.config.appUrl, 1),
           image1 : require('util').format('%s/assets/images/anunciones/%s', sails.config.appUrl, 2),
           imageFd1: uploadedFiles[0].fd,
