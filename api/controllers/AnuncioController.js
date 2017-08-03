@@ -16,11 +16,6 @@ module.exports = {
     if (!archivos) {
       return res.badRequest({err : 'invalid archivos'});
     }
-
-    let archivos = req.file('archivos')
-    if (!archivos) {
-      return res.badRequest({err : 'invalid archivos'});
-    }
     let images = [];
     var path = require('path')
     req.file('archivos').upload({ dirname: require('path').resolve(sails.config.appPath, 'assets/images/users') }, function (err, uploadedFiles) {
