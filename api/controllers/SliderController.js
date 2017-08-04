@@ -6,8 +6,8 @@ module.exports = {
 
     create: function (req, res) {
 
-      let titulo1 = req.param('titulo1'),
-          sliderlink1 = req.param('sliderlink1'),
+      let titulo1 = req.param('titulo'),
+          sliderlink1 = req.param('sliderlink'),
           titulo2 = req.param('titulo2'),
           sliderlink2 = req.param('sliderlink2'),
           titulo3 = req.param('titulo3'),
@@ -15,6 +15,7 @@ module.exports = {
           titulo4 = req.param('titulo4'),
           sliderlink4 = req.param('sliderlink4'),
           titulo5 = req.param('titulo5'),
+          sliderlink5 = req.param('sliderlink5'),
           image1 = req.param('image1'),
           image2 = req.param('image2'),
           image3 = req.param('image3'),
@@ -71,7 +72,7 @@ module.exports = {
          try {
             const sliders = await Slider.find();
             let news = true;
-            if (anuncios.length > 0) {
+            if (sliders.length > 0) {
               news = false
             }
 
@@ -93,11 +94,11 @@ module.exports = {
                 titulo4, sliderlink4,
                 images: [images[3]],
               });
-              const slider5 = await Slider.create({
+              /* const slider5 = await Slider.create({
                 titulo5, sliderlink5,
                 images: [images[4]],
-              });
-              return slider5;
+              }); */
+              return slider1;
             } else {
               const an1 = await Slider.update(sliders[0].id, {
                 titulo1, sliderlink1,
@@ -115,13 +116,13 @@ module.exports = {
                 titulo4, sliderlink4,
                 images: [images[3] === '' ? sliders[3].images[0]: images[3]],
               });
-              const an5 = await Slider.update(sliders[4].id, {
+              /* const an5 = await Slider.update(sliders[4].id, {
                 titulo5, sliderlink5,
                 images: [images[4] === '' ? sliders[4].images[0]: images[4]],
-              });
-              return an5;
+              }); */
+              return an1;
             }
-           
+
 
            //return slider and category
             return { slider };
