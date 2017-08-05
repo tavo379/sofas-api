@@ -103,28 +103,28 @@ module.exports = {
             } else {
               await Slider.update(sliders[0].id, {
                 titulo:  titulo1.trim() != "" ? titulo1 : sliders[0].sliderlink ,
-                sliderlink: sliderlink1 == '' ? sliders[0].sliderlink: '',
-                images: [images[0] == '' ? sliders[0].images[0]: images[0]],
+                sliderlink: sliderlink1.trim() != "" ? sliderlink1 : sliders[0].sliderlink,
+                images: [images[0].trim() != "" ? images[0] : sliders[0].images[0]]
               });
               await Slider.update(sliders[1].id, {
-                titulo:  titulo2 == '' ? sliders[1].titulo : '',
-                sliderlink: sliderlink2 == '' ? sliders[1].sliderlink : '',
-                images: [images[1] == '' ? sliders[1].images[0]: images[1]],
+                titulo:  titulo2.trim() != "" ? titulo2 : sliders[1].sliderlink ,
+                sliderlink: sliderlink2.trim() != "" ? sliderlink2 : sliders[1].sliderlink,
+                images: [images[1].trim() != "" ? images[1] : sliders[1].images[0]]
               });
               await Slider.update(sliders[2].id, {
-                titulo:  titulo3 == '' ? sliders[2].titulo: '',
-                sliderlink: sliderlink3 == '' ? sliders[2].sliderlink: '',
-                images: [images[2] == '' ? sliders[2].images[0]: images[2]],
+                titulo:  titulo3.trim() != "" ? titulo3 : sliders[2].sliderlink ,
+                sliderlink: sliderlink3.trim() != "" ? sliderlink3 : sliders[2].sliderlink,
+                images: [images[2].trim() != "" ? images[2] : sliders[2].images[0]]
               });
              await Slider.update(sliders[3].id, {
-                titulo:  titulo4 == '' ? sliders[3].titulo: '',
-                sliderlink: sliderlink4 == '' ? sliders[3].sliderlink: '',
-                images: [images[3] == '' ? sliders[3].images[0]: images[3]],
+                titulo:  titulo4.trim() != "" ? titulo4 : sliders[3].sliderlink ,
+                sliderlink: sliderlink4.trim() != "" ? sliderlink4 : sliders[3].sliderlink,
+                images: [images[3].trim() != "" ? images[3] : sliders[3].images[0]]
               });
              await Slider.update(sliders[4].id, {
-                titulo:  titulo5 == '' ? sliders[4].titulo: '',
-                sliderlink: sliderlink5 == '' ? sliders[4].sliderlink: '',
-                images: [images[4] == '' ? sliders[4].images[0]: images[4]],
+                titulo:  titulo5.trim() != "" ? titulo5 : sliders[4].sliderlink ,
+                sliderlink: sliderlink5.trim() != "" ? sliderlink5 : sliders[4].sliderlink,
+                images: [images[4].trim() != "" ? images[4] : sliders[4].images[0]]
               });
               return 'OK';
             }
