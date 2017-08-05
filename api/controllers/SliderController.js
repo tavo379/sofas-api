@@ -21,7 +21,7 @@ module.exports = {
           image3 = req.param('image3'),
           image4 = req.param('image4'),
           image5 = req.param('image5');
-    
+
      let images = [];
      var path = require('path')
      req.file('archivos').upload({ dirname: require('path').resolve(sails.config.appPath, 'assets/images/users') }, function (err, uploadedFiles) {
@@ -101,27 +101,29 @@ module.exports = {
               });
               return 'OK';
             } else {
-              Slider.update(sliders[0].id, {
-                titulo:  titulo1 == '' ? sliders[0].titulo : '',
+                console.log(titulo1);
+                console.log(sliderlink1);
+              await Slider.update(sliders[0].id, {
+                titulo:  titulo1,
                 sliderlink: sliderlink1 == '' ? sliders[0].sliderlink: '',
                 images: [images[0] == '' ? sliders[0].images[0]: images[0]],
               });
-              Slider.update(sliders[1].id, {
+              await Slider.update(sliders[1].id, {
                 titulo:  titulo2 == '' ? sliders[1].titulo : '',
                 sliderlink: sliderlink2 == '' ? sliders[1].sliderlink : '',
                 images: [images[1] == '' ? sliders[1].images[0]: images[1]],
               });
-              Slider.update(sliders[2].id, {
+              await Slider.update(sliders[2].id, {
                 titulo:  titulo3 == '' ? sliders[2].titulo: '',
                 sliderlink: sliderlink3 == '' ? sliders[2].sliderlink: '',
                 images: [images[2] == '' ? sliders[2].images[0]: images[2]],
               });
-             Slider.update(sliders[3].id, {
+             await Slider.update(sliders[3].id, {
                 titulo:  titulo4 == '' ? sliders[3].titulo: '',
                 sliderlink: sliderlink4 == '' ? sliders[3].sliderlink: '',
                 images: [images[3] == '' ? sliders[3].images[0]: images[3]],
               });
-              Slider.update(sliders[4].id, {
+             await Slider.update(sliders[4].id, {
                 titulo:  titulo5 == '' ? sliders[4].titulo: '',
                 sliderlink: sliderlink5 == '' ? sliders[4].sliderlink: '',
                 images: [images[4] == '' ? sliders[4].images[0]: images[4]],
