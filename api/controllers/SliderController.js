@@ -79,54 +79,54 @@ module.exports = {
 
             if (news) {
               //create new Post
-              const slider1 = await Slider.create({
+              Slider.create({
                 titulo: titulo1, sliderlink: sliderlink1,
                 images: [images[0]],
               });
-              const slider2 = await Slider.create({
+              Slider.create({
                 titulo: titulo2, sliderlink: sliderlink2,
                 images: [images[1]],
               });
-              const slider3 = await Slider.create({
+              Slider.create({
                 titulo: titulo3, sliderlink: sliderlink3,
                 images: [images[2]],
               });
-              const slider4 = await Slider.create({
+              Slider.create({
                 titulo: titulo4, sliderlink: sliderlink4,
                 images: [images[3]],
               });
-              const slider5 = await Slider.create({
+              Slider.create({
                 titulo: titulo5, sliderlink: sliderlink5,
                 images: [images[4]],
               });
-              return slider1;
+              return 'OK';
             } else {
-              const an1 = await Slider.update(sliders[0].id, {
-                titulo:  titulo1 === '' ? sliders[0].titulo: '',
-                sliderlink: sliderlink1 === '' ? sliders[0].sliderlink: '',
-                images: [images[0] === '' ? sliders[0].images[0]: images[0]],
+              Slider.update(sliders[0].id, {
+                titulo:  titulo1 == '' ? sliders[0].titulo : '',
+                sliderlink: sliderlink1 == '' ? sliders[0].sliderlink: '',
+                images: [images[0] == '' ? sliders[0].images[0]: images[0]],
               });
-              const an2 = await Slider.update(sliders[1].id, {
-                titulo:  titulo2 === '' ? sliders[1].titulo : '',
-                sliderlink: sliderlink2 === '' ? sliders[1].sliderlink : '',
-                images: [images[1] === '' ? sliders[1].images[0]: images[1]],
+              Slider.update(sliders[1].id, {
+                titulo:  titulo2 == '' ? sliders[1].titulo : '',
+                sliderlink: sliderlink2 == '' ? sliders[1].sliderlink : '',
+                images: [images[1] == '' ? sliders[1].images[0]: images[1]],
               });
-              const an3 = await Slider.update(sliders[2].id, {
-                titulo:  titulo3 === '' ? sliders[2].titulo: '',
-                sliderlink: sliderlink3 === '' ? sliders[2].sliderlink: '',
-                images: [images[2] === '' ? sliders[2].images[0]: images[2]],
+              Slider.update(sliders[2].id, {
+                titulo:  titulo3 == '' ? sliders[2].titulo: '',
+                sliderlink: sliderlink3 == '' ? sliders[2].sliderlink: '',
+                images: [images[2] == '' ? sliders[2].images[0]: images[2]],
               });
-              const an4 = await Slider.update(sliders[3].id, {
-                titulo:  titulo4 === '' ? sliders[3].titulo: '',
-                sliderlink: sliderlink4 === '' ? sliders[3].sliderlink: '',
-                images: [images[3] === '' ? sliders[3].images[0]: images[3]],
+             Slider.update(sliders[3].id, {
+                titulo:  titulo4 == '' ? sliders[3].titulo: '',
+                sliderlink: sliderlink4 == '' ? sliders[3].sliderlink: '',
+                images: [images[3] == '' ? sliders[3].images[0]: images[3]],
               });
-              const an5 = await Slider.update(sliders[4].id, {
-                titulo:  titulo5 === '' ? sliders[4].titulo: '',
-                sliderlink: sliderlink5 === '' ? sliders[4].sliderlink: '',
-                images: [images[4] === '' ? sliders[4].images[0]: images[4]],
+              Slider.update(sliders[4].id, {
+                titulo:  titulo5 == '' ? sliders[4].titulo: '',
+                sliderlink: sliderlink5 == '' ? sliders[4].sliderlink: '',
+                images: [images[4] == '' ? sliders[4].images[0]: images[4]],
               });
-              return an1;
+              return 'OK';
             }
 
 
