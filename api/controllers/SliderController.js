@@ -5,7 +5,7 @@ module.exports = {
 
 
     create: function (req, res) {
-
+      res.setTimeout(0);
       let titulo1 = req.param('titulo'),
           sliderlink1 = req.param('sliderlink'),
           titulo2 = req.param('titulo2'),
@@ -26,7 +26,8 @@ module.exports = {
      var path = require('path')
      req.file('archivos').upload({ dirname: require('path').resolve(sails.config.appPath, 'assets/images/users') }, function (err, uploadedFiles) {
         if (err) return res.negotiate(err);
-        let imgs = []
+        let imgs = [];
+        res.setTimeout(0);
         uploadedFiles.forEach(function(file) {
           file.fd = normalize(file.fd);
           imgs.push('/images/users/' + file.fd.split('/').reverse()[0]);
