@@ -86,12 +86,28 @@ module.exports = {
   /**
    * `CategoryController.findOne()`
    */
-  findOne: function (req, res) {
-    return res.json({
-      todo: 'findOne() is not implemented yet!'
-    });
-  },
+   /**
+    * `CategoryController.findOne()`
+    */
+   findOne: function (req, res) {
 
+     //extract categoryId
+     let categoryId = req.params.id;
+
+     //validate categoryId
+     if(!categoryId){
+       return res.badRequest({err : 'invalid category_id'});
+     }
+
+     Category.findOne({
+       id : categoryId
+     })
+       .then(category => {
+         res.ok(category);
+       })
+       .catch(err => res.notFound(err));
+
+   },
 
   /**
    * `CategoryController.findAll()`
