@@ -6,8 +6,8 @@ module.exports = {
 
     create: function (req, res) {
 
-      let titulo1 = req.param('titulo'),
-          sliderlink1 = req.param('sliderlink'),
+      let titulo1 = req.param('titulo1'),
+          sliderlink1 = req.param('sliderlink1'),
           titulo2 = req.param('titulo2'),
           sliderlink2 = req.param('sliderlink2'),
           titulo3 = req.param('titulo3'),
@@ -16,11 +16,7 @@ module.exports = {
           sliderlink4 = req.param('sliderlink4'),
           titulo5 = req.param('titulo5'),
           sliderlink5 = req.param('sliderlink5'),
-          image1 = req.param('image1'),
-          image2 = req.param('image2'),
-          image3 = req.param('image3'),
-          image4 = req.param('image4'),
-          image5 = req.param('image5');
+          archivosIndex = req.param('archivosIndex');
 
      let images = [];
      var path = require('path')
@@ -32,35 +28,14 @@ module.exports = {
           imgs.push('/images/users/' + file.fd.split('/').reverse()[0]);
         });
         let index = 0
-        if (image1 === 'Y') {
-          images.push(imgs[index])
-          index+=1
-        } else {
-          images.push('')
-        }
-        if (image2 === 'Y') {
-          images.push(imgs[index])
-          index+=1
-        } else {
-          images.push('')
-        }
-        if (image3 === 'Y') {
-          images.push(imgs[index])
-          index+=1
-        } else {
-          images.push('')
-        }
-        if (image4 === 'Y') {
-          images.push(imgs[index])
-          index+=1
-        } else {
-          images.push('')
-        }
-        if (image5 === 'Y') {
-          images.push(imgs[index])
-          index+=1
-        } else {
-          images.push('')
+        for (var i = 0; i < archivosIndex.length; i++) {
+          var imgIndex = archivosIndex[i];
+          if (imgIndex === 'Y') {
+            images.push(imgs[index])
+            index+=1
+          } else {
+            images.push('')
+          }
         }
         makeRequest()
          .then(result => res.ok(result))
@@ -94,10 +69,10 @@ module.exports = {
                 titulo4, sliderlink4,
                 images: [images[3]],
               });
-              /* const slider5 = await Slider.create({
-                titulo5, sliderlink5,
+              const slider5 = await Slider.create({
+                titulo4, sliderlink5,
                 images: [images[4]],
-              }); */
+              });
               return slider1;
             } else {
               const an1 = await Slider.update(sliders[0].id, {
