@@ -5,15 +5,9 @@ module.exports = {
 
 
     create: function (req, res) {
-<<<<<<< HEAD
 
       let titulo1 = req.param('titulo1'),
           sliderlink1 = req.param('sliderlink1'),
-=======
-      res.setTimeout(0);
-      let titulo1 = req.param('titulo'),
-          sliderlink1 = req.param('sliderlink'),
->>>>>>> 66f791d23f8e39e66c2a1754d69dcb6d55bd67cb
           titulo2 = req.param('titulo2'),
           sliderlink2 = req.param('sliderlink2'),
           titulo3 = req.param('titulo3'),
