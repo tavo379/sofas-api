@@ -33,31 +33,31 @@ module.exports = {
           imgs.push('/images/users/' + file.fd.split('/').reverse()[0]);
         });
         let index = 0
-        if (image1 === 'Y') {
+        if (image1 === 'YES') {
           images.push(imgs[index])
           index+=1
         } else {
           images.push('')
         }
-        if (image2 === 'Y') {
+        if (image2 === 'YES') {
           images.push(imgs[index])
           index+=1
         } else {
           images.push('')
         }
-        if (image3 === 'Y') {
+        if (image3 === 'YES') {
           images.push(imgs[index])
           index+=1
         } else {
           images.push('')
         }
-        if (image4 === 'Y') {
+        if (image4 === 'YES') {
           images.push(imgs[index])
           index+=1
         } else {
           images.push('')
         }
-        if (image5 === 'Y') {
+        if (image5 === 'YES') {
           images.push(imgs[index])
           index+=1
         } else {
