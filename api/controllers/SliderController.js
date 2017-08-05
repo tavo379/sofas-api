@@ -18,6 +18,8 @@ module.exports = {
           sliderlink5 = req.param('sliderlink5'),
           archivosIndex = req.param('archivosIndex');
 
+    console.log(archivosIndex)
+    
      let images = [];
      var path = require('path')
      req.file('archivos').upload({ dirname: require('path').resolve(sails.config.appPath, 'assets/images/users') }, function (err, uploadedFiles) {
