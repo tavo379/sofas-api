@@ -101,10 +101,8 @@ module.exports = {
               });
               return 'OK';
             } else {
-                console.log(titulo1);
-                console.log(sliderlink1);
               await Slider.update(sliders[0].id, {
-                titulo:  titulo1,
+                titulo:  titulo1.trim() != "" ? titulo1 : sliders[0].sliderlink ,
                 sliderlink: sliderlink1 == '' ? sliders[0].sliderlink: '',
                 images: [images[0] == '' ? sliders[0].images[0]: images[0]],
               });
