@@ -134,10 +134,14 @@ module.exports = {
             .then((posts)=>{
               console.log("alguna pendejada");
               console.log(posts);
-              if(posts && posts.length>0){
-                console.log("una diferente" + categoryID);
-                res.ok(posts);
+              if (posts) {
+                if (posts.length>0) {
+                  console.log("una diferente" + categoryID);
+                  res.ok(posts);
+                  return
+                }
               }
+              res.ok([]);
             })
           } catch (err){
             console.log("muerio" + categoryID);
