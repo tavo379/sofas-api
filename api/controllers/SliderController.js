@@ -33,31 +33,37 @@ module.exports = {
           imgs.push('/images/users/' + file.fd.split('/').reverse()[0]);
         });
         let index = 0
-        if (image1 === 'YES') {
+
+        if (image1 == 'YES') {
+
           images.push(imgs[index])
           index+=1
         } else {
           images.push('')
         }
-        if (image2 === 'YES') {
+        if (image2 == 'YES') {
+
           images.push(imgs[index])
           index+=1
         } else {
           images.push('')
         }
-        if (image3 === 'YES') {
+        if (image3 == 'YES') {
+
           images.push(imgs[index])
           index+=1
         } else {
           images.push('')
         }
-        if (image4 === 'YES') {
+        if (image4 == 'YES') {
+
           images.push(imgs[index])
           index+=1
         } else {
           images.push('')
         }
-        if (image5 === 'YES') {
+        if (image5 == 'YES') {
+
           images.push(imgs[index])
           index+=1
         } else {
@@ -76,7 +82,6 @@ module.exports = {
             if (sliders.length > 0) {
               news = false
             }
-
             if (news) {
               //create new Post
               Slider.create({
