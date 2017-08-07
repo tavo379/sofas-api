@@ -119,7 +119,7 @@ module.exports = {
 
      //extract postId
      let categoryID = req.params.categoryId;
-     console.log(categoryID);
+     console.log("una palabra " + categoryID);
      Category.findOne({
         id: categoryID
      }).then((category) =>{
@@ -129,9 +129,16 @@ module.exports = {
          })
          .then((posts)=>{
            if(posts && posts.length>0){
+             console.log("una diferente" + categoryID);
              res.ok(posts);
            }
-         })
+         }) .catch (err){
+           console.log("muerio" + categoryID);
+           res.ok([]);
+         }
+       } else{
+         console.log("otra palabra " + categoryID);
+         res.ok([]);
        }
      });
    },
