@@ -120,29 +120,34 @@ module.exports = {
      //extract postId
      let categoryID = req.params.categoryId;
      console.log("una palabra " + categoryID);
-     Category.findOne({
+    try {
+      Category.findOne({
         id: categoryID
-     }).then((category) =>{
-       if(category){
-         try {
-          Post.find({
-            category_id: category.id
-          })
-          .then((posts)=>{
-            if(posts && posts.length>0){
-              console.log("una diferente" + categoryID);
-              res.ok(posts);
-            }
-          })
-        } catch (err){
-           console.log("muerio" + categoryID);
-           res.ok([]);
-         }
-       } else{
-         console.log("otra palabra " + categoryID);
-         res.ok([]);
+      }).then((category) =>{
+        if(category){
+          try {
+            Post.find({
+              category_id: category.id
+            })
+            .then((posts)=>{
+              if(posts && posts.length>0){
+                console.log("una diferente" + categoryID);
+                res.ok(posts);
+              }
+            })
+          } catch (err){
+            console.log("muerio" + categoryID);
+            res.ok([]);
+          }
+        } else {
+          console.log("otra palabra " + categoryID);
+          res.ok([]);
        }
      });
+    } catch (err){
+      console.log("muerio 2 " + categoryID);
+      res.ok([]);
+    }
    },
 
   findOne: function (req, res) {
