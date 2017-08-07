@@ -124,15 +124,17 @@ module.exports = {
         id: categoryID
      }).then((category) =>{
        if(category){
-         Post.find({
-           category_id: category.id
-         })
-         .then((posts)=>{
-           if(posts && posts.length>0){
-             console.log("una diferente" + categoryID);
-             res.ok(posts);
-           }
-         }) .catch (err){
+         try {
+          Post.find({
+            category_id: category.id
+          })
+          .then((posts)=>{
+            if(posts && posts.length>0){
+              console.log("una diferente" + categoryID);
+              res.ok(posts);
+            }
+          })
+        } catch (err){
            console.log("muerio" + categoryID);
            res.ok([]);
          }
