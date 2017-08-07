@@ -116,20 +116,24 @@ module.exports = {
    * `PostController.findOne()`
    */
    findByCategory: function (req, res) {
-
-     //extract postId
+      // res.ok([]);
+    //  extract postId
      let categoryID = req.params.categoryId;
      console.log("una palabra " + categoryID);
     try {
       Category.findOne({
         id: categoryID
       }).then((category) =>{
+        console.log("uan frase");
+        console.log(category);
         if(category){
           try {
             Post.find({
               category_id: category.id
             })
             .then((posts)=>{
+              console.log("alguna pendejada");
+              console.log(posts);
               if(posts && posts.length>0){
                 console.log("una diferente" + categoryID);
                 res.ok(posts);
