@@ -57,6 +57,7 @@ module.exports.routes = {
 
   'POST /projects'      : 'ProjectsController.create',
   'GET /projects'       : 'ProjectsController.findAll',
+  'GET /projects'       : 'ProjectsController.findOne',
 
 
   'POST /anuncios'      : 'AnuncioController.create',
