@@ -55,6 +55,9 @@ module.exports.routes = {
   'POST /sliders'      : 'SliderController.create',
   'GET /sliders'       : 'SliderController.findAll',
 
+  'POST /projects'      : 'ProjectsController.create',
+  'GET /projects'       : 'ProjectsController.findAll',
+
 
   'POST /anuncios'      : 'AnuncioController.create',
   'GET /anuncios'       : 'AnuncioController.findAll',
