@@ -22,7 +22,7 @@ module.exports = {
         imgs.push('/images/projects/' + file.fd.split('/').reverse()[0]);
       });
       let index = 0
-      for (var i = 0; i < updates.length; i++) {        
+      for (var i = 0; i < updates.length; i++) {
         if (updates[i] == 'YES') {
           images.push(imgs[index])
           index+=1
@@ -30,6 +30,7 @@ module.exports = {
           images.push('')
         }
       }
+
       makeRequest()
         .then(result => res.ok(result))
         .catch(err => res.serverError(err));
@@ -44,38 +45,40 @@ module.exports = {
         news = false
       }
       if (news) {
+
         //create new Projects
-        Projects.create({
+        await Projects.create({
           descripcion: titulo1,
           images: [
             images[0], images[1], images[2], images[3], images[4]
           ]
         });
-        Projects.create({
+        console.log(images);
+        await Projects.create({
           descripcion: titulo2,
           images: [
             images[5], images[6], images[7], images[8], images[9]
           ]
         });
-        Projects.create({
+        await Projects.create({
           descripcion: titulo3,
           images: [
             images[10], images[11], images[12], images[13], images[14]
           ]
         });
-        Projects.create({
+        await Projects.create({
           descripcion: titulo4,
           images: [
             images[15], images[16], images[17], images[18], images[19]
           ]
         });
-        Projects.create({
+        await Projects.create({
           descripcion: titulo5,
           images: [
             images[20], images[21], images[22], images[23], images[24]
           ]
         });
-        Projects.create({
+        await Projects.create({
           descripcion: titulo6,
           images: [
             images[25], images[26], images[27], images[28], images[29]
@@ -171,5 +174,47 @@ module.exports = {
       })
       .catch(err => res.notFound(err));
 
+  },
+
+  findOne : function (req,res) {
+    Projects.find()
+      .then( projects => {
+        if(projects.length == 0){
+          return [];
+        }
+        return projects[0];
+
+      })
+      .catch(err => res.notFound(err));
+  },
+
+  findFirst : function (req,res) {
+    Projects.find()
+      .then( projects => {
+        if(projects.length == 0){
+          return [];
+        }
+        return res.ok(projects[0]);
+
+      })
+      .catch(err => res.notFound(err));
+  },
+
+  findOthers : function (req,res) {
+    Projects.find()
+      .then( projects => {
+        if(projects.length == 0){
+          return [];
+        }
+      return res.ok([
+        projects[1],
+        projects[2],
+        projects[3],
+        projects[4],
+        projects[5],
+      ]);
+
+      })
+      .catch(err => res.notFound(err));
   }
 };

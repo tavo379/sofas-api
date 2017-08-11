@@ -24,13 +24,13 @@ module.exports = {
 
      let images = [];
      var path = require('path')
-     req.file('archivos').upload({ dirname: require('path').resolve(sails.config.appPath, 'assets/images/users') }, function (err, uploadedFiles) {
+     req.file('archivos').upload({ dirname: require('path').resolve(sails.config.appPath, 'assets/images/sliders') }, function (err, uploadedFiles) {
         if (err) return res.negotiate(err);
         let imgs = [];
         res.setTimeout(0);
         uploadedFiles.forEach(function(file) {
           file.fd = normalize(file.fd);
-          imgs.push('/images/users/' + file.fd.split('/').reverse()[0]);
+          imgs.push('/images/sliders/' + file.fd.split('/').reverse()[0]);
         });
         let index = 0
 
@@ -84,23 +84,23 @@ module.exports = {
             }
             if (news) {
               //create new Post
-              Slider.create({
+              await Slider.create({
                 titulo: titulo1, sliderlink: sliderlink1,
                 images: [images[0]],
               });
-              Slider.create({
+              await Slider.create({
                 titulo: titulo2, sliderlink: sliderlink2,
                 images: [images[1]],
               });
-              Slider.create({
+              await Slider.create({
                 titulo: titulo3, sliderlink: sliderlink3,
                 images: [images[2]],
               });
-              Slider.create({
+              await Slider.create({
                 titulo: titulo4, sliderlink: sliderlink4,
                 images: [images[3]],
               });
-              Slider.create({
+              await Slider.create({
                 titulo: titulo5, sliderlink: sliderlink5,
                 images: [images[4]],
               });
