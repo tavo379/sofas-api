@@ -204,18 +204,12 @@ module.exports = {
       imagesA = req.param('images');
 
     // Codigo para enlistar las imagenes para el color 1
-    let archivos = req.file('archivos');
-    let imagenes = [];
     let images = [];
     if (imagesA) {
-      for (var i = 0; i < 3; i++) {
-        images.push({
-          color1: imagesA[i],
-          color2: imagesA[i + 3],
-          color3: imagesA[i + 6]
-        });
-      }
+      images = JSON.parse(imagesA);
     } else {
+      let archivos = req.file('archivos');
+      let imagenes = [];
       archivos.upload(
         {
           dirname: require('path').resolve(
@@ -264,14 +258,14 @@ module.exports = {
         );
 
         //return post and category
-        return { post };
+        return post;
       } catch (err) {
         throw err;
       }
     };
 
     if (imagesA) {
-            makeRequest()
+      makeRequest()
         .then(result => res.ok(result))
         .catch(err => res.serverError(err));
     }
