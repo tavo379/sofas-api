@@ -14,7 +14,7 @@ module.exports = {
 
     },
     subcategorie: {
-      type: 'json'
+      type: 'array'
     },
 
     posts :{

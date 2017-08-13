@@ -24,10 +24,10 @@ module.exports = {
           const category = await Category.findOne({name:name}).exec(function (err, categPrincipal){
             if (err) { return res.serverError(err); }
             if (!categPrincipal) { return res.notFound('Could not find a category.'); }
-            console.log(categPrincipal)
             if (!categPrincipal.subcategorie) {
               categPrincipal.subcategorie = []
             }
+            console.log(categPrincipal);
             categPrincipal.subcategorie.push(subcategorie);
 
             categPrincipal.save(function(err){
