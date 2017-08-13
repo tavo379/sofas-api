@@ -33,7 +33,7 @@ module.exports = {
       model :'category',
       required: true,
       columnName:'category_id'
-    }
-
+    },
+    subCategory: {type: 'string'}
   }
 };

@@ -89,7 +89,23 @@ module.exports = {
     const makeRequest = async () => {
       try {
         //create new Category
-        const category = await Category.findOne({ name: categoryName });
+        const categories = await Category.findOne();
+        let category = null
+        for (var i = 0; i < categories.length; i++) {
+          var element = categories[i];
+          if (element.subcategorie) {
+            for (var j = 0; j < element.subcategorie.length; j++) {
+              var element2 = element.subcategorie[j];
+              if (categoryName  == element2) {
+                category = element
+              }              
+            }
+          }
+        }
+        if (!category) {
+          throw 'Category not found';
+        }
+        
         //create new Post
         const post = await Post.create({
           nombre,
@@ -100,7 +116,8 @@ module.exports = {
           color3,
           images: JSON.stringify(images), // La magia pokemon!!
           _user: userId,
-          _category: category.id
+          _category: category.id,
+          subCategory: categoryName
         });
 
         //return post and category
