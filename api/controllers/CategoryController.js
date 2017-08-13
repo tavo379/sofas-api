@@ -55,8 +55,12 @@ module.exports = {
     image.upload({
       dirname: require('path').resolve(sails.config.appPath, 'assets/images/categories')
     }, function (err, uploadedFiles) {
-      img = normalize(uploadedFiles[0].fd);
-      img = '/images/categories/' + img.split('/').reverse()[0];
+      if (uploadedFiles) {
+        if (uploadedFiles[0]) {
+          img = normalize(uploadedFiles[0].fd);
+          img = '/images/categories/' + img.split('/').reverse()[0];
+        }
+      }
       makeRequest()
         .then(result => res.ok(result))
         .catch(err => res.serverError(err));
