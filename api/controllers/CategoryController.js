@@ -111,6 +111,26 @@ module.exports = {
 
    },
 
+   findSubcategories: function (req, res) {
+
+     Category.find()
+      .then(category => {
+        if(!category || category.length === 0){
+          throw new Error('No se encuentra la subcategorias');
+        }
+        let subcategories = [];
+        for(let i=0; i< category.length; i++) {
+          if ( category[i].subcategorie) {
+            for( let j=0 ; j < category[i].subcategorie.length; j++) {
+              subcategories.push(category[i].subcategorie[j]);
+            }
+          }
+        }
+        return res.ok(subcategories);
+      })
+       .catch(err => res.notFound(err));
+
+   },
 
   /**
    * `CategoryController.update()`

@@ -73,7 +73,7 @@ module.exports.routes = {
   'GET /category:id'   : 'CategoryController.findOne',
   'PUT /category:id'   : 'CategoryController.update',
   'DELETE /category:id': 'CategoryController.delete',
-
+  'GET /subcategories' : 'CategoryController.findSubcategories',
 
   'POST /agnesi'      : 'AgnesiController.create',
   'GET /agnesi'       : 'AgnesiController.findAll',
