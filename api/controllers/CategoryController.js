@@ -13,7 +13,7 @@ module.exports = {
    * `CategoryController.create()`
    */
   create: function (req, res) {
-    res.setTimeout(0);
+
     // create async method makeRequest
     const makeRequest = async () =>{
       try {
@@ -24,18 +24,18 @@ module.exports = {
           const category = await Category.findOne({name:name}).exec(function (err, categPrincipal){
             if (err) { return res.serverError(err); }
             if (!categPrincipal) { return res.notFound('Could not find a category.'); }
-            if (!categPrincipal.subcategorie) {
-              categPrincipal.subcategorie = []
-            }
-            console.log(categPrincipal);
-            categPrincipal.subcategorie.push(subcategorie);
-
-            categPrincipal.save(function(err){
-              if (err) { return res.serverError(err); }
-              return {categPrincipal}
-            });//</save()>
-            return {categPrincipal};
           });
+          if (!category.subcategorie) {
+            category.subcategorie = []
+          }
+          console.log(category);
+          category.subcategorie.push(subcategorie);
+
+          await category.save(function(err){
+            if (err) { return res.serverError(err); }
+            return {category}
+          });//</save()>
+          return {category};
         }
         //return post and category
       }catch (err){
@@ -71,6 +71,13 @@ module.exports = {
     }
   },
 
+
+  /**
+   * `CategoryController.findOne()`
+   */
+   /**
+    * `CategoryController.findOne()`
+    */
    findOne: function (req, res) {
 
      //extract categoryId
@@ -91,7 +98,9 @@ module.exports = {
 
    },
 
-
+  /**
+   * `CategoryController.findAll()`
+   */
    findAll: function (req, res) {
 
      Category.find()
