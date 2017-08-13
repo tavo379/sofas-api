@@ -52,23 +52,15 @@ module.exports = {
     }
 
     let img;
-    if(subcategorie === 'null'){
-      image.upload({
-        dirname: require('path').resolve(sails.config.appPath, 'assets/images/categories')
-      }, function (err, uploadedFiles) {
-        img = normalize(uploadedFiles[0].fd);
-        img = '/images/categories/' + img.split('/').reverse()[0];
-        makeRequest()
-          .then(result => res.ok(result))
-          .catch(err => res.serverError(err));
-      });
-    } else {
-      //call the makeRequest method
+    image.upload({
+      dirname: require('path').resolve(sails.config.appPath, 'assets/images/categories')
+    }, function (err, uploadedFiles) {
+      img = normalize(uploadedFiles[0].fd);
+      img = '/images/categories/' + img.split('/').reverse()[0];
       makeRequest()
         .then(result => res.ok(result))
         .catch(err => res.serverError(err));
-
-    }
+    });
   },
 
 
