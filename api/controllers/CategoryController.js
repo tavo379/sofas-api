@@ -13,7 +13,7 @@ module.exports = {
    * `CategoryController.create()`
    */
   create: function (req, res) {
-
+    res.setTimeout(0);
     // create async method makeRequest
     const makeRequest = async () =>{
       try {
@@ -32,9 +32,9 @@ module.exports = {
 
             categPrincipal.save(function(err){
               if (err) { return res.serverError(err); }
-              return categPrincipal
+              return {categPrincipal}
             });//</save()>
-            return categPrincipal;
+            return {categPrincipal};
           });
         }
         //return post and category
@@ -71,13 +71,6 @@ module.exports = {
     }
   },
 
-
-  /**
-   * `CategoryController.findOne()`
-   */
-   /**
-    * `CategoryController.findOne()`
-    */
    findOne: function (req, res) {
 
      //extract categoryId
@@ -98,9 +91,7 @@ module.exports = {
 
    },
 
-  /**
-   * `CategoryController.findAll()`
-   */
+
    findAll: function (req, res) {
 
      Category.find()
