@@ -25,15 +25,22 @@ module.exports = {
     let img;
     if(subcategorie === 'null'){
       image.upload({
-        dirname: require('path').resolve(sails.config.appPath, 'assets/images/users')
+        dirname: require('path').resolve(sails.config.appPath, 'assets/images/categories')
       }, function (err, uploadedFiles) {
         img = normalize(uploadedFiles[0].fd);
-        img = '/images/users/' + img.split('/').reverse()[0];
+        img = '/images/categories/' + img.split('/').reverse()[0];
         makeRequest()
           .then(result => res.ok(result))
           .catch(err => res.serverError(err));
       });
+    } else {
+      //call the makeRequest method
+        makeRequest()
+          .then(result => res.ok(result))
+          .catch(err => res.serverError(err));
+
     }
+
 
      //create async method makeRequest
      const makeRequest = async () =>{
@@ -51,35 +58,24 @@ module.exports = {
 
             if(categPrincipal.subcategorie)
             {
-              categPrincipal.subcategorie[(Object.keys(categPrincipal.subcategorie).length-1)/1+1] = subcategorie
+              // categPrincipal.subcategorie[(Object.keys(categPrincipal.subcategorie).length-1)/1+1] = subcategorie
+              categPrincipal.subcategorie.push(subcategorie);
             }
             else{
-              categPrincipal.subcategorie={0:subcategorie}
+              categPrincipal.subcategorie = { 0:subcategorie }
             }
             categPrincipal.save(function(err){
               if (err) { return res.serverError(err); }
               return categPrincipal
             });//</save()>
-
+            return categPrincipal;
           });
-          const result = await Category.findOne({name:name})
-          return result;
         }
-         //return post and category
-
-
-       }catch (err){
+        //return post and category
+        }catch (err){
          console.log(err);
        }
      };
-
-      //call the makeRequest method
-      if (subcategorie !== 'null') {
-        makeRequest()
-          .then(result => res.ok(result))
-          .catch(err => res.serverError(err));
-      }
-
   },
 
 

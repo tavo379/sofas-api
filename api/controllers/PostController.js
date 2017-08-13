@@ -60,14 +60,14 @@ module.exports = {
       {
         dirname: require('path').resolve(
           sails.config.appPath,
-          'assets/images/users'
+          'assets/images/products'
         )
       },
       function(err, uploadedFiles) {
         if (err) return res.negotiate(err);
         uploadedFiles.forEach(function(file) {
           file.fd = normalize(file.fd);
-          imagenes.push('/images/users/' + file.fd.split('/').reverse()[0]);
+          imagenes.push('/images/products/' + file.fd.split('/').reverse()[0]);
         });
         if (imagenes.length !== 9) {
           return res.badRequest({ err: 'invalid imagenes' });
