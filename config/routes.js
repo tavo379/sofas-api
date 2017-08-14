@@ -52,6 +52,10 @@ module.exports.routes = {
   'PUT /posts/:id'   : 'PostController.update',
   'DELETE /posts/:id': 'PostController.delete',
 
+  'GET /products/subcategoria/:categoryId/:subcategoria' : 'PostController.findProductsCat',
+
+  'GET /products/random/:idProduct' : 'PostController.findRandom',
+
   'POST /sliders'      : 'SliderController.create',
   'GET /sliders'       : 'SliderController.findAll',
 
@@ -74,6 +78,8 @@ module.exports.routes = {
   'PUT /category:id'   : 'CategoryController.update',
   'DELETE /category:id': 'CategoryController.delete',
   'GET /subcategories' : 'CategoryController.findSubcategories',
+
+
 
   'POST /agnesi'      : 'AgnesiController.create',
   'GET /agnesi'       : 'AgnesiController.findAll',

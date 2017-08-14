@@ -89,7 +89,7 @@ module.exports = {
     const makeRequest = async () => {
       try {
         //create new Category
-        const categories = await Category.findOne();
+        const categories = await Category.find();
         let category = null
         for (var i = 0; i < categories.length; i++) {
           var element = categories[i];
@@ -98,14 +98,14 @@ module.exports = {
               var element2 = element.subcategorie[j];
               if (categoryName  == element2) {
                 category = element
-              }              
+              }
             }
           }
         }
         if (!category) {
           throw 'Category not found';
         }
-        
+
         //create new Post
         const post = await Post.create({
           nombre,
@@ -164,6 +164,81 @@ module.exports = {
       res.ok([]);
     }
   },
+  findProductsCat: function(req, res) {
+    let categoryID = req.params.categoryId;
+    let subcategoria = req.params.subcategoria;
+    console.log(categoryID);
+    console.log(subcategoria);
+    try {
+      Category.findOne({
+        id: categoryID
+      }).then(category => {
+        if (category) {
+          try {
+            Post.find({
+              category_id: category.id
+            }).then(posts => {
+              if (posts) {
+                if (posts.length > 0) {
+                  let products = [];
+                  for(let i=0;i<posts.length;i++){
+                    if(posts[i].subCategory == subcategoria){
+                      products.push(posts[i]);
+                    }
+                  }
+                  res.ok(products);
+                  return;
+                }
+              }
+              res.ok([]);
+            });
+          } catch (err) {
+            res.ok([]);
+          }
+        } else {
+          res.ok([]);
+        }
+      });
+    } catch (err) {
+      res.ok([]);
+    }
+  },
+
+  findRandom: function(req, res) {
+    let idProduct = req.params.idProduct;
+    if(!idProduct){
+      return res.badRequest({ err: 'invalid product id' });
+    }
+    Post.find()
+      .populate('_category')
+      .then(posts => {
+        if (!posts || posts.length === 0) {
+          throw new Error('No post found');
+        }
+        if(posts.length <= 4) {
+          return res.ok(posts);
+        }
+        let products = [];
+        let min = 0;
+        let max = posts.length-1;
+
+        for(let i = 0; i < 4; i++){
+          let index = Math.floor(Math.random() * max) + min;
+
+          if(posts[index].id == idProduct){
+            i = i-1;
+    
+          }else{
+            products.push(posts[index]);
+            posts.splice(index,1);
+            max = max-1;
+          }
+        }
+        return res.ok(products);
+      })
+      .catch(err => res.notFound(err));
+  },
+
 
   findOne: function(req, res) {
     //extract postId
